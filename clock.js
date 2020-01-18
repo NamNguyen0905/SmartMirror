@@ -1,6 +1,13 @@
+// global variables
+let curDayOfWeek = "";
+let curMonth = "";
+let curYear = "";
+let curTime = "";
+let curDate = "";
+
 function getTime() {
-  let date = new Date();
   //Date
+  let date = new Date();
   let year = date.getFullYear();
   if (year < 1000) year += 1900;
 
@@ -37,6 +44,34 @@ function getTime() {
   let second = date.getSeconds();
   if (minute < 10) minute = "0" + minute;
   if (second < 10) second = "0" + second;
+
+  curDayOfWeek = weekArray[day];
+  curMonth = monthArray[month];
+  curYear = year;
+  if (hour >= 0 && hour < 12) {
+    curTime = hour + ":" + minute + " AM";
+  } else {
+    curTime = hour - 12 + ":" + minute + " PM";
+  }
+  curDate = curMonth + " " + day;
+  switch (day) {
+    case 1:
+    case 21:
+    case 31:
+      curDate += "st ";
+      break;
+    case 2:
+    case 22:
+      curDate += "nd ";
+      break;
+    case 3:
+    case 23:
+      curDate += "rd ";
+      break;
+    default:
+      curDate += "th ";
+  }
+  curDate += year;
 
   let clock = document.getElementById("clockDisplay");
   clock.textContent =

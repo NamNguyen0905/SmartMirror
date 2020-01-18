@@ -7,7 +7,7 @@
     <title>Project 2</title>
   </head>
 
-  <body>
+  <body onload="getTime()">
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.4.84/Tone.js"></script>
@@ -18,5 +18,7 @@
     <div>SmartMirror</div>
     <script src="/script.js"></script>
     <button type="button" id="button" onclick="init()">Start</button>
+
+    <div id="clockDisplay"></div>
   </body>
 </html>

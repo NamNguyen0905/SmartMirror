@@ -116,46 +116,50 @@ function readOutLoud(message) {
   var botText = "";
   //Greetings
   if (
-    message.includes("how are you") ||
-    message.includes("how you doing") ||
-    message.includes("whats up") ||
-    message.includes("hello how are you") ||
-    message.includes("are you doing today") ||
-    message.includes("what's up")
+    message.search("how are you") >= 0 ||
+    message.search("how you doing") >= 0 ||
+    message.search("hello how are you") >= 0 ||
+    message.search("are you doing today") >= 0
   ) {
     botText = greetings[Math.floor(Math.random() * greetings.length)];
     //				insertBotText(botText);
     speech.text = botText;
-  } else if (message.includes("hello") || message.includes("hey")) {
+  } else if (
+    message.search("hello") >= 0 ||
+    message.search("hey") >= 0 ||
+    message.search("what's up") >= 0 ||
+    message.search("what is up") >= 0
+  ) {
     speech.text = "Hello";
   }
   //dumb responses
   else if (
-    message.includes("your creator") ||
-    message.includes("your father") ||
-    message.includes("made you") ||
-    message.includes("created")
+    message.search("your creator") >= 0 ||
+    message.search("your father") >= 0 ||
+    message.search("made you") >= 0 ||
+    message.search("who created you") >= 0
   ) {
     botText += creator[Math.floor(Math.random() * creator.length)];
     //insertBotText(botText); future idea for adding bot
     //text on the screen.
     speech.text = botText;
-  } else if (message.includes("thank")) {
+  } else if (message.search("thank you") >= 0) {
     botText += thank[Math.floor(Math.random() * thank.length)];
     //insertBotText(botText);
     speech.text = botText;
   } else if (
-    message.includes("joke") ||
-    message.includes("Tell me a joke") ||
-    message.includes("Joke")
+    message.search("give me a joke") >= 0 ||
+    message.search("tell me a joke") >= 0 ||
+    message.search("humor me") >= 0
   ) {
     botText += jokes[Math.floor(Math.random() * jokes.length)];
     //insertBotText(botText);
     speech.text = botText;
   } else if (
-    message.includes("news") ||
-    message.includes("Tell me the news") ||
-    message.includes("Give me the news")
+    message.search("what's happening around the world") >= 0 ||
+    message.search("tell me the news") >= 0 ||
+    message.search("give me the news") >= 0 ||
+    message.search("give me my daily update") >= 0
   ) {
     botText = "These are the top news highlights from around the world! ";
     for (i = 0; i < dailyNews.length; i++) {
@@ -165,6 +169,37 @@ function readOutLoud(message) {
       "Do you wish to learn more about a particular news article? If so, which one?";
     //insertBotText(botText);
     speech.text = botText;
+  } else if (
+    message.search("what day is it") >= 0 ||
+    message.search("what day of the week is it") >= 0 ||
+    message.search("what is todays day") >= 0
+  ) {
+    speech.text = "Today is " + curDayOfWeek;
+  } else if (
+    message.search("what month is it") >= 0 ||
+    message.search("what month are we in") >= 0
+  ) {
+    speech.text = "It is currently " + curMonth;
+  } else if (
+    message.search("what year is it") >= 0 ||
+    message.search("what year are we in") >= 0
+  ) {
+    speech.text = "It is currently the year " + curYear;
+  } else if (
+    message.search("what's the time") >= 0 ||
+    message.search("what time is it") >= 0 ||
+    message.search("give me the time") >= 0 ||
+    message.search("tell me the time") >= 0
+  ) {
+    speech.text = "The time is " + curTime;
+  } else if (
+    message.search("what's the date today") >= 0 ||
+    message.search("what's the date") >= 0 ||
+    message.search("give me the date") >= 0 ||
+    message.search("tell me the date") >= 0 ||
+    message.search("what is today") >= 0
+  ) {
+    speech.text = "Today's date is " + curDate;
   } else {
     speech.text = "Sorry I don't have a response.";
   }

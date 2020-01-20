@@ -203,6 +203,8 @@ function readOutLoud(message) {
   } else {
     speech.text = "Sorry I don't have a response.";
   }
+
+  document.getElementById("botText") = botText;
   //speech.text = message;
   speech.volume = 1;
   speech.rate = 0.8;
@@ -211,6 +213,7 @@ function readOutLoud(message) {
   botText = "";
 
   speech.onend = function() {
+    document.getElementById("botText") = "";
     //this can be added at the end of the listen() function
     recognizer.listen(result);
   };

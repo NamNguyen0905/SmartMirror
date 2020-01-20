@@ -9,6 +9,13 @@
   <body>
     <div>SmartMirror</div>
     <div id="clockDisplay"></div>
+    <div id="countdown">
+      <p>
+        <span class="days"></span> days <span class="hours"></span> hours
+        <span class="minutes"></span> minutes
+        <span class="seconds"></span> seconds
+      </p>
+    </div>
     <script src="clock.js" onload="getTime()"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/speech-commands@0.4.0/dist/speech-commands.min.js"></script>
@@ -19,5 +26,6 @@
     ></script>
     <script src="/script.js"></script>
     <button type="button" id="button" onclick="init()">Start</button>
+    <!-- <div id="botText"></div> -->
   </body>
 </html>

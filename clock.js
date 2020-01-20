@@ -1,4 +1,4 @@
-// global letiables
+// global variables
 let curDayOfWeek = "";
 let curMonth = "";
 let curYear = "";

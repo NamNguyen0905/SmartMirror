@@ -1,4 +1,4 @@
-// global letiables
+// global variables
 let curDayOfWeek = "";
 let curMonth = "";
 let curYear = "";
@@ -74,9 +74,35 @@ function getTime() {
   curDate += year;
 
   let clock = document.getElementById("clockDisplay");
-  clock.textContent = curDate + " ---- " + curTime;
+  clock.textContent =
+    weekArray[day] +
+    " " +
+    monthArray[month] +
+    " " +
+    day +
+    " " +
+    year +
+    " ---- " +
+    hour +
+    ":" +
+    minute +
+    ":" +
+    second;
 
-  clock.innerText = curDate + " ---- " + curTime;
+  clock.innerText =
+    weekArray[day] +
+    " " +
+    monthArray[month] +
+    " " +
+    day +
+    " " +
+    year +
+    " ---- " +
+    hour +
+    ":" +
+    minute +
+    ":" +
+    second;
 
   setTimeout("getTime()", 1000);
 }
@@ -125,6 +151,7 @@ function initializeClock(id, endtime) {
 
     if (t.total <= 0) {
       clock.textContent = "The countdown is over!";
+      readOutLoud("Hey! The countdown is over!");
       clearInterval(timeinterval);
     }
   }
@@ -134,7 +161,7 @@ function initializeClock(id, endtime) {
 }
 
 // 5 mins from now
-let deadline = new Date(Date.parse(new Date()) + 5 * 60 * 1000);
+let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
 
 // At 23 PM
 //let deadline = new Date("Jan 19 2020 23:00:00");

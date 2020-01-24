@@ -106,3 +106,63 @@ function getTime() {
 
   setTimeout("getTime()", 1000);
 }
+
+function getTimeRemaining(endtime) {
+  let t = Date.parse(endtime) - Date.parse(new Date());
+  let seconds = Math.floor((t / 1000) % 60);
+  let minutes = Math.floor((t / 1000 / 60) % 60);
+  let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  let days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    total: t,
+    days: days,
+    hours: hours,
+    minutes: minutes,
+    seconds: seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  let clock = document.getElementById(id);
+  let daysSpan = clock.querySelector(".days");
+  let hoursSpan = clock.querySelector(".hours");
+  let minutesSpan = clock.querySelector(".minutes");
+  let secondsSpan = clock.querySelector(".seconds");
+
+  function updateClock() {
+    let t = getTimeRemaining(endtime);
+
+    daysSpan.innerHTML = t.days;
+    if (t.hours < 10) {
+      hoursSpan.innerHTML = ("" + t.hours).slice(-2);
+    } else {
+      hoursSpan.innerHTML = ("0" + t.hours).slice(-2);
+    }
+    if (t.minutes < 10) {
+      minutesSpan.innerHTML = ("" + t.minutes).slice(-2);
+    } else {
+      minutesSpan.innerHTML = ("0" + t.minutes).slice(-2);
+    }
+    if (t.seconds < 10) {
+      secondsSpan.innerHTML = ("" + t.seconds).slice(-2);
+    } else {
+      secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
+    }
+
+    if (t.total <= 0) {
+      clock.textContent = "The countdown is over!";
+      readOutLoud("Hey! The countdown is over!");
+      clearInterval(timeinterval);
+    }
+  }
+
+  updateClock();
+  let timeinterval = setInterval(updateClock, 1000);
+}
+
+// 5 mins from now
+let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
+
+// At 23 PM
+//let deadline = new Date("Jan 19 2020 23:00:00");
+initializeClock("countdown", deadline);

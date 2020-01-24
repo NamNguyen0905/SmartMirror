@@ -202,6 +202,8 @@ function readOutLoud(message) {
     message.search("what is today") >= 0
   ) {
     speech.text = "Today's date is " + curDate;
+  } else if (message.search("Hey! The countdown is over!") >= 0) {
+    speech.text = "Hey! The countdown is over!";
   } else {
     speech.text = "Sorry I don't have a response.";
   }

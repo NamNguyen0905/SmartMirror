@@ -1,0 +1,47 @@
+* {
+  font-size: 62.5%;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: black;
+  color: white;
+}
+
+.grid-container {
+  display: grid;
+  /* grid-template-columns: 100%; */
+  grid-gap: 5px;
+  /* padding: ; */
+  height: 100%;
+}
+
+.grid-container div {
+  background-color: #a9a9a9;
+  text-align: center;
+  padding: 1rem;
+  font-size: 3rem;
+}
+
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 1.2rem 1.6rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+  position: fixed;
+  bottom: 2%;
+  right: 2%;
+  opacity: 0.5;
+}
+
+.btn:hover {
+  background-color: RoyalBlue;
+  opacity: 1;
+}

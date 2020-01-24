@@ -13,6 +13,7 @@ fetch(apiNEWS)
   })
   .then(data => {
     // Work with JSON data here
+    console.log(data);
     for (i = 0; i < dailyNews.length; i++) {
       dailyNews[i][0] = data.articles[i].title;
       dailyNews[i][1] = data.articles[i].description;
@@ -26,6 +27,7 @@ fetch(apiNEWS)
 //Ten random jokes
 var jokes = new Array(10);
 $.getJSON("https://official-joke-api.appspot.com/random_ten", function(data) {
+  console.log(data);
   for (var i = 0; i < 10; i++) {
     jokes[i] = data[i].setup + " " + data[i].punchline;
   }

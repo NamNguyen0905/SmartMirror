@@ -161,8 +161,8 @@ function initializeClock(id, endtime) {
 }
 
 // 5 mins from now
-let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
+// let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
 
 // At 23 PM
 //let deadline = new Date("Jan 19 2020 23:00:00");
-initializeClock("countdown", deadline);
+// initializeClock("countdown", deadline);

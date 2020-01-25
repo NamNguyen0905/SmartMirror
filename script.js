@@ -209,6 +209,43 @@ function readOutLoud(message) {
         temp +
         "°F. It won't snow, but it is chilly. So please grab a light jacket.";
     }
+  }
+  //Add countdown feature
+  else if (
+    message.search(
+      /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/i
+    ) >= 0
+  ) {
+    let myRegexp = /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/g;
+    let match = myRegexp.exec(message);
+    let deadline = new Date(Date.parse(new Date()) + 5 * 1000); //Default 5 seconds
+    switch (match[2]) {
+      case "seconds":
+      case "second":
+      case "Seconds":
+      case "Second":
+        deadline = new Date(Date.parse(new Date()) + parseInt(match[1]) * 1000);
+        break;
+      case "minutes":
+      case "minute":
+      case "Minutes":
+      case "Minute":
+        deadline = new Date(
+          Date.parse(new Date()) + parseInt(match[1]) * 60 * 1000
+        );
+        break;
+      case "hours":
+      case "hour":
+      case "Hours":
+      case "Hour":
+        deadline = new Date(
+          Date.parse(new Date()) + parseInt(match[1]) * 60 * 60 * 1000
+        );
+    }
+    botText = "OK, I have set the timer for " + match[1] + " " + match[2];
+    initializeClock("countdown", deadline);
+  } else if (message.search("Hey! The countdown is over") >= 0) {
+    botText = "Hey! The countdown is over.";
   } else {
     botText = "Sorry I don't have a response.";
   }

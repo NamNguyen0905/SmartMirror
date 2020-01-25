@@ -152,7 +152,6 @@ function initializeClock(id, endtime) {
     }
 
     if (t.total <= 0) {
-      clock.textContent = "The countdown is over!";
       readOutLoud("Hey! The countdown is over!");
       clearInterval(timeinterval);
     }

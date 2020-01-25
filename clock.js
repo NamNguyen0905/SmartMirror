@@ -48,8 +48,10 @@ function getTime() {
   curDayOfWeek = weekArray[day];
   curMonth = monthArray[month];
   curYear = year;
-  if (hour >= 0 && hour < 12) {
+  if (hour > 0 && hour < 12) {
     curTime = hour + ":" + minute + " AM";
+  } else if (hour == 0) {
+    curTime = "12:" + minute + " AM";
   } else {
     curTime = hour - 12 + ":" + minute + " PM";
   }
@@ -161,8 +163,8 @@ function initializeClock(id, endtime) {
 }
 
 // 5 mins from now
-let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
+// let deadline = new Date(Date.parse(new Date()) + 5 * 1000);
 
 // At 23 PM
 //let deadline = new Date("Jan 19 2020 23:00:00");
-initializeClock("countdown", deadline);
+// initializeClock("countdown", deadline);

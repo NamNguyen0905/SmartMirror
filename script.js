@@ -13,7 +13,6 @@ fetch(apiNEWS)
   })
   .then(data => {
     // Work with JSON data here
-    console.log(data);
     for (i = 0; i < dailyNews.length; i++) {
       dailyNews[i][0] = data.articles[i].title;
       dailyNews[i][1] = data.articles[i].description;
@@ -27,9 +26,8 @@ fetch(apiNEWS)
 //Ten random jokes
 var jokes = new Array(10);
 $.getJSON("https://official-joke-api.appspot.com/random_ten", function(data) {
-  console.log(data);
   for (var i = 0; i < 10; i++) {
-    jokes[i] = data[i].setup + " " + data[i].punchline;
+    jokes[i] = data[i].setup + "! " + data[i].punchline;
   }
   console.log(jokes);
 });
@@ -47,52 +45,6 @@ var listening;
 var userText = "";
 const speech = new SpeechSynthesisUtterance();
 speech.voice = window.speechSynthesis.getVoices()[7];
-// the link to your model provided by Teachable Machine export panel
-const URL = "https://teachablemachine.withgoogle.com/models/cAxP924p/";
-
-async function createModel() {
-  const checkpointURL = URL + "model.json"; // model topology
-  const metadataURL = URL + "metadata.json"; // model metadata
-  window.recognizer = speechCommands.create(
-    "BROWSER_FFT", // fourier transform type, not useful to change
-    undefined, // speech commands vocabulary feature, not useful for your models
-    checkpointURL,
-    metadataURL
-  );
-  // check that model and metadata are loaded via HTTPS requests.
-  await recognizer.ensureModelLoaded();
-  return recognizer;
-}
-
-async function init() {
-  const recognizer = await createModel();
-  const classLabels = recognizer.wordLabels(); // get class labels. Hotword or background noise
-  console.log(classLabels);
-  // listen() takes two arguments:
-  // 1. A callback function that is invoked anytime a word is recognized.
-  // 2. A configuration object with adjustable fields //this is optional
-  recognizer.listen(result, {
-    includeSpectrogram: false, // in case listen should return result.spectrogram
-    probabilityThreshold: 0.95,
-    invokeCallbackOnNoiseAndUnknown: false, //this is the one that keeps listening if kept to false
-    overlapFactor: 0.5 // probably want between 0.5 and 0.75. More info in README
-  });
-}
-
-function result() {
-  console.log("Listening for hot word");
-  listening = 1;
-  console.log("Hotword Detected");
-  recognizer.stopListening();
-  console.log("Stopped listening");
-  setTimeout(function() {
-    console.log("Playing Tone");
-    //play a middle 'C' for the duration of an 8th note
-    synth.triggerAttackRelease("C4", "8n");
-    Tone.start();
-  }, 500);
-  listen();
-}
 
 function listen() {
   console.log("Listen was run");
@@ -124,17 +76,15 @@ function readOutLoud(message) {
     message.search("are you doing today") >= 0
   ) {
     botText = greetings[Math.floor(Math.random() * greetings.length)];
-    //				insertBotText(botText);
-    speech.text = botText;
   } else if (
     message.search("hello") >= 0 ||
     message.search("hey") >= 0 ||
     message.search("what's up") >= 0 ||
     message.search("what is up") >= 0
   ) {
-    speech.text = "Hello";
+    botText = "Hello";
   }
-  //dumb responses
+  //Responses about creator, jokes, thank you
   else if (
     message.search("your creator") >= 0 ||
     message.search("your father") >= 0 ||
@@ -142,22 +92,17 @@ function readOutLoud(message) {
     message.search("who created you") >= 0
   ) {
     botText += creator[Math.floor(Math.random() * creator.length)];
-    //insertBotText(botText); future idea for adding bot
-    //text on the screen.
-    speech.text = botText;
   } else if (message.search("thank you") >= 0) {
     botText += thank[Math.floor(Math.random() * thank.length)];
-    //insertBotText(botText);
-    speech.text = botText;
   } else if (
     message.search("give me a joke") >= 0 ||
     message.search("tell me a joke") >= 0 ||
     message.search("humor me") >= 0
   ) {
     botText += jokes[Math.floor(Math.random() * jokes.length)];
-    //insertBotText(botText);
-    speech.text = botText;
-  } else if (
+  }
+  //response about news
+  else if (
     message.search("what's happening around the world") >= 0 ||
     message.search("tell me the news") >= 0 ||
     message.search("give me the news") >= 0 ||
@@ -169,49 +114,110 @@ function readOutLoud(message) {
     }
     botText +=
       "Do you wish to learn more about a particular news article? If so, which one?";
-    //insertBotText(botText);
-    speech.text = botText;
-  } else if (
+  }
+  //Responses about date, day or time
+  else if (
     message.search("what day is it") >= 0 ||
     message.search("what day of the week is it") >= 0 ||
     message.search("what is todays day") >= 0
   ) {
-    speech.text = "Today is " + curDayOfWeek;
+    botText = "Today is " + curDayOfWeek;
   } else if (
     message.search("what month is it") >= 0 ||
     message.search("what month are we in") >= 0
   ) {
-    speech.text = "It is currently " + curMonth;
+    botText = "It is currently " + curMonth;
   } else if (
     message.search("what year is it") >= 0 ||
     message.search("what year are we in") >= 0
   ) {
-    speech.text = "It is currently the year " + curYear;
+    botText = "It is currently the year " + curYear;
   } else if (
     message.search("what's the time") >= 0 ||
     message.search("what time is it") >= 0 ||
     message.search("give me the time") >= 0 ||
-    message.search("tell me the time") >= 0
+    message.search("tell me the time") >= 0 ||
+    message.search("what is the time") >= 0
   ) {
-    speech.text = "The time is " + curTime;
+    botText = "The time is " + curTime;
   } else if (
     message.search("what's the date today") >= 0 ||
     message.search("what's the date") >= 0 ||
     message.search("give me the date") >= 0 ||
-    message.search("tell me the date") >= 0 ||
-    message.search("what is today") >= 0
+    message.search("tell me the date") >= 0
   ) {
-    speech.text = "Today's date is " + curDate;
-  } else if (message.search("Hey! The countdown is over!") >= 0) {
-    speech.text = "Hey! The countdown is over!";
-  } else {
-    speech.text = "Sorry I don't have a response.";
+    botText = "Today's date is " + curDate;
+  } else if (message.search("Keep a timer for") >= 0) {
+    //ADD VARIABLES TO LEARN THE TIME as we had spoken about
+    // speech.text = "Hey! The countdown is over!";
   }
-  //speech.text = message;
+  //responses about weather
+  else if (
+    message.search("what is the temperature today") >= 0 ||
+    message.search("what is the temperature outside") >= 0 ||
+    message.search("what is today's outside temperature") >= 0 ||
+    message.search("how hot is it") >= 0 ||
+    message.search("is it hot") >= 0 ||
+    message.search("how sunny") >= 0 ||
+    message.search("is it sunny") >= 0 ||
+    message.includes("sunscreen")
+  ) {
+    botText = "The outside temperature is " + temp + "°F.";
+    if (temp >= 90) {
+      botText += " Yup. Global warming is real!";
+    }
+    if (currentSummary.includes("Cloudy")) {
+      botText += " It does not seem to be sunny today!";
+    }
+    if (uvindex > 5) {
+      botText +=
+        " Also the UV index is " + uvindex + ". Better put on your sunscreen";
+    } else if (uvindex < 5 && message.includes("sunscreen")) {
+      botText += " The UV index is " + uvindex + ". You don't need sunscreen.";
+    }
+  } else if (message.includes("weather")) {
+    botText += "It looks like it's going to be " + currentSummary;
+  } else if (message.includes("humid")) {
+    botText += "Humidity is about " + humid * 100 + "%";
+  } else if (message.includes("rain") || message.includes("umbrella")) {
+    botText += "Humidity is about " + humid * 100 + "%.";
+    if (dailySummary.includes("rain")) {
+      botText +=
+        " The forcast predicts " +
+        dailySummary +
+        ". I'd carry an umbrella if I were you.";
+    } else {
+      botText += " The forcast predicts " + dailySummary;
+    }
+    // insertBotText(botText);
+    // speech.text = botText;
+  } else if (
+    message.includes("to snow") ||
+    message.includes("snowing") ||
+    message.includes("jacket") ||
+    message.includes("it cold")
+  ) {
+    botText += "Wind speed is about " + windspeed + " mph.";
+    if (dailySummary.includes("snow") || temp <= 57) {
+      botText +=
+        " The forcast predicts " +
+        dailySummary +
+        ". I'd carry a jacket. It is freezing outside.";
+    } else {
+      botText +=
+        " The outside temperature is " +
+        temp +
+        "°F. It won't snow, but it is chilly. So please grab a light jacket.";
+    }
+  } else {
+    botText = "Sorry I don't have a response.";
+  }
+  speech.text = botText;
   speech.volume = 1;
   speech.rate = 0.8;
   speech.pitch = 1;
   window.speechSynthesis.speak(speech);
+  insertBotText(botText);
   botText = "";
 
   speech.onend = function() {
@@ -220,7 +226,7 @@ function readOutLoud(message) {
   };
 }
 
-recognition.onerror = function(event) {
+recognition.onerror = function() {
   console.error("Error. No speech");
   recognizer.listen(result);
 };
@@ -242,3 +248,8 @@ const thank = [
   "You owe me big time.",
   "Alright now take me back to area 51."
 ];
+
+function insertBotText(botText) {
+  displayText = document.getElementById("botText");
+  displayText.textContent = botText;
+}

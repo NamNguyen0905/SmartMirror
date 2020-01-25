@@ -48,8 +48,10 @@ function getTime() {
   curDayOfWeek = weekArray[day];
   curMonth = monthArray[month];
   curYear = year;
-  if (hour >= 0 && hour < 12) {
+  if (hour > 0 && hour < 12) {
     curTime = hour + ":" + minute + " AM";
+  } else if (hour == 0) {
+    curTime = "12:" + minute + " AM";
   } else {
     curTime = hour - 12 + ":" + minute + " PM";
   }

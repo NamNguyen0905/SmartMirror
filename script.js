@@ -211,40 +211,48 @@ function readOutLoud(message) {
     }
   }
   //Add countdown feature
-  else if (
-    message.search(
-      /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/i
-    ) >= 0
-  ) {
-    let myRegexp = /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/g;
+  // /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/i
+  else if (message.search("set timer") >= 0) {
+    let myRegexp = /(\d+)+\s([minutes?|seconds?|hours?]+)/gi;
     let match = myRegexp.exec(message);
+    console.log(match[2]);
     let deadline = new Date(Date.parse(new Date()) + 5 * 1000); //Default 5 seconds
-    switch (match[2]) {
-      case "seconds":
-      case "second":
-      case "Seconds":
-      case "Second":
-        deadline = new Date(Date.parse(new Date()) + parseInt(match[1]) * 1000);
-        break;
-      case "minutes":
-      case "minute":
-      case "Minutes":
-      case "Minute":
-        deadline = new Date(
-          Date.parse(new Date()) + parseInt(match[1]) * 60 * 1000
-        );
-        break;
-      case "hours":
-      case "hour":
-      case "Hours":
-      case "Hour":
-        deadline = new Date(
-          Date.parse(new Date()) + parseInt(match[1]) * 60 * 60 * 1000
-        );
+    if (match) {
+      switch (match[2]) {
+        case "seconds":
+        case "second":
+        case "Seconds":
+        case "Second":
+          deadline = new Date(
+            Date.parse(new Date()) + parseInt(match[1]) * 1000
+          );
+          break;
+        case "minutes":
+        case "minute":
+        case "Minutes":
+        case "Minute":
+          deadline = new Date(
+            Date.parse(new Date()) + parseInt(match[1]) * 60 * 1000
+          );
+          break;
+        case "hours":
+        case "hour":
+        case "Hours":
+        case "Hour":
+          deadline = new Date(
+            Date.parse(new Date()) + parseInt(match[1]) * 60 * 60 * 1000
+          );
+      }
+    } else {
+      console.log("No match");
     }
+
     botText = "OK, I have set the timer for " + match[1] + " " + match[2];
     initializeClock("countdown", deadline);
   } else if (message.search("Hey! The countdown is over") >= 0) {
+    //Stopping recognition incase microphone is listening
+    recognition.stop();
+    recognizer.stopListening();
     botText = "Hey! The countdown is over.";
   } else {
     botText = "Sorry I don't have a response.";

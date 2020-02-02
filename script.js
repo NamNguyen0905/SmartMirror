@@ -215,7 +215,6 @@ function readOutLoud(message) {
   else if (message.search("set timer") >= 0) {
     let myRegexp = /(\d+)+\s([minutes?|seconds?|hours?]+)/gi;
     let match = myRegexp.exec(message);
-    console.log(match[2]);
     let deadline = new Date(Date.parse(new Date()) + 5 * 1000); //Default 5 seconds
     if (match) {
       switch (match[2]) {
@@ -248,6 +247,35 @@ function readOutLoud(message) {
     }
 
     botText = "OK, I have set the timer for " + match[1] + " " + match[2];
+    initializeClock("countdown", deadline);
+  }
+  // Search for "alarm" & "at" keyword to trigger
+  else if (message.includes("alarm") && message.includes("at")) {
+    let myRegexp = /(\d{1,2})(:(\d{2}))?\s+(a.m.|p.m.)/g;
+    let match = myRegexp.exec(message);
+
+    let time_remaining, deadline;
+    let cur = new Date();
+
+    // Transfer the set time to minutes (i.e. at 10 AM => at 10*60 AM)
+    time_remaining =
+      (parseInt(match[1]) + (match[4] == "p.m." ? 12 : 0)) * 60 +
+      (match[3] != undefined ? parseInt(match[3]) : 0);
+
+    // Calculate time left until the set time
+    time_remaining =
+      time_remaining * 60 * 1000 -
+      cur.getHours() * 60 * 60 * 1000 -
+      cur.getMinutes() * 60 * 1000 -
+      cur.getSeconds() * 1000;
+
+    // In case the time_remaining is negative (set over 12 hours)
+    if (time_remaining < 0) {
+      time_remaining += 24 * 60 * 60 * 1000;
+    }
+
+    deadline = new Date(Date.parse(new Date()) + time_remaining);
+    botText = "OK, I have set the alarm at " + match[1] + " " + match[4];
     initializeClock("countdown", deadline);
   } else if (message.search("Hey! The countdown is over") >= 0) {
     //Stopping recognition incase microphone is listening

@@ -16,6 +16,9 @@ fetch(apiNEWS)
     for (i = 0; i < dailyNews.length; i++) {
       dailyNews[i][0] = data.articles[i].title;
       dailyNews[i][1] = data.articles[i].description;
+      // Get image URL from API
+      document.getElementById("img" + (i + 1)).src =
+        data.articles[i].urlToImage;
     }
     console.log(dailyNews);
   })
@@ -275,7 +278,12 @@ function readOutLoud(message) {
     }
 
     deadline = new Date(Date.parse(new Date()) + time_remaining);
-    botText = "OK, I have set the alarm at " + match[1] + " " + match[4];
+    botText =
+      "OK, I have set the alarm at " +
+      match[1] +
+      (match[3] != undefined ? ":" + match[3] : "") +
+      " " +
+      match[4];
     initializeClock("countdown", deadline);
   } else if (message.search("Hey! The countdown is over") >= 0) {
     //Stopping recognition incase microphone is listening

@@ -24,18 +24,18 @@ function getTime() {
     "Saturday"
   );
   let monthArray = new Array(
-    "January",
-    "February",
-    "March",
-    "April",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
     "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
   );
 
   //Time
@@ -45,66 +45,39 @@ function getTime() {
   if (minute < 10) minute = "0" + minute;
   if (second < 10) second = "0" + second;
 
-  curDayOfWeek = weekArray[day];
-  curMonth = monthArray[month];
   curYear = year;
   if (hour > 0 && hour < 12) {
-    curTime = hour + ":" + minute + " AM";
+    curTime = hour + ":" + minute + "AM";
   } else if (hour == 0) {
-    curTime = "12:" + minute + " AM";
+    curTime = "12:" + minute + "AM";
+  } else if (hour == 12) {
+    curTime = "12:" + minute + "PM";
   } else {
-    curTime = hour - 12 + ":" + minute + " PM";
+    curTime = hour - 12 + ":" + minute + "PM";
   }
-  curDate = curMonth + " " + day;
-  switch (day) {
-    case 1:
-    case 21:
-    case 31:
-      curDate += "st ";
-      break;
-    case 2:
-    case 22:
-      curDate += "nd ";
-      break;
-    case 3:
-    case 23:
-      curDate += "rd ";
-      break;
-    default:
-      curDate += "th ";
-  }
-  curDate += year;
 
   let clock = document.getElementById("clockDisplay");
   clock.textContent =
     weekArray[day] +
-    " " +
+    ", " +
     monthArray[month] +
     " " +
+    (day < 10 ? "0" : "") +
     day +
     " " +
-    year +
-    " ---- " +
-    hour +
-    ":" +
-    minute +
-    ":" +
-    second;
+    "\n" +
+    curTime;
 
   clock.innerText =
     weekArray[day] +
-    " " +
+    ", " +
     monthArray[month] +
     " " +
+    (day < 10 ? "0" : "") +
     day +
     " " +
-    year +
-    " ---- " +
-    hour +
-    ":" +
-    minute +
-    ":" +
-    second;
+    "\n" +
+    curTime;
 
   setTimeout("getTime()", 1000);
 }
@@ -126,32 +99,82 @@ function getTimeRemaining(endtime) {
 
 function initializeClock(id, endtime) {
   let clock = document.getElementById(id);
-  let daysSpan = clock.querySelector(".days");
-  let hoursSpan = clock.querySelector(".hours");
-  let minutesSpan = clock.querySelector(".minutes");
-  let secondsSpan = clock.querySelector(".seconds");
 
   function updateClock() {
     let t = getTimeRemaining(endtime);
 
-    daysSpan.innerHTML = t.days;
-    if (t.hours < 10) {
-      hoursSpan.innerHTML = ("" + t.hours).slice(-2);
-    } else {
-      hoursSpan.innerHTML = ("0" + t.hours).slice(-2);
+    // Display if days > 0
+    if (t.days > 0) {
+      if (clock.querySelector(".days") == null) {
+        let daysSpan = document.createElement("span");
+        daysSpan.classList.add("days");
+        clock.appendChild(daysSpan);
+      }
+      let daysSpan = clock.querySelector(".days");
+      daysSpan.innerHTML = t.days + " days ";
+    } else if (clock.querySelector(".days") != null) {
+      let daysSpan = clock.querySelector(".days");
+      daysSpan.innerHTML = "";
     }
-    if (t.minutes < 10) {
-      minutesSpan.innerHTML = ("" + t.minutes).slice(-2);
-    } else {
-      minutesSpan.innerHTML = ("0" + t.minutes).slice(-2);
+
+    // Display if hours > 0
+    if (t.hours > 0) {
+      if (clock.querySelector(".hours") == null) {
+        let hoursSpan = document.createElement("span");
+        hoursSpan.classList.add("hours");
+        clock.appendChild(hoursSpan);
+      }
+      let hoursSpan = clock.querySelector(".hours");
+      if (t.hours < 10) {
+        hoursSpan.innerHTML = ("" + t.hours).slice(-2);
+      } else {
+        hoursSpan.innerHTML = ("0" + t.hours).slice(-2);
+      }
+      hoursSpan.innerHTML += " hours ";
+    } else if (clock.querySelector(".hours") != null) {
+      let hoursSpan = clock.querySelector(".hours");
+      hoursSpan.innerHTML = "";
     }
-    if (t.seconds < 10) {
-      secondsSpan.innerHTML = ("" + t.seconds).slice(-2);
-    } else {
-      secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
+
+    // Display if minutes > 0
+    if (t.minutes > 0) {
+      if (clock.querySelector(".minutes") == null) {
+        let minutesSpan = document.createElement("span");
+        minutesSpan.classList.add("minutes");
+        clock.appendChild(minutesSpan);
+      }
+      let minutesSpan = clock.querySelector(".minutes");
+      if (t.minutes < 10) {
+        minutesSpan.innerHTML = ("" + t.minutes).slice(-2);
+      } else {
+        minutesSpan.innerHTML = ("0" + t.minutes).slice(-2);
+      }
+      minutesSpan.innerHTML += " minutes ";
+    } else if (clock.querySelector(".minutes") != null) {
+      let minutesSpan = clock.querySelector(".minutes");
+      minutesSpan.innerHTML = "";
+    }
+
+    if (t.seconds > 0) {
+      if (clock.querySelector(".seconds") == null) {
+        let secondsSpan = document.createElement("span");
+        secondsSpan.classList.add("seconds");
+        clock.appendChild(secondsSpan);
+      }
+      let secondsSpan = clock.querySelector(".seconds");
+      if (t.seconds < 10) {
+        secondsSpan.innerHTML = ("" + t.seconds).slice(-2);
+      } else {
+        secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
+      }
+      secondsSpan.innerHTML += " seconds.";
+    } else if (clock.querySelector(".seconds") != null) {
+      let secondsSpan = clock.querySelector(".seconds");
+      secondsSpan.innerHTML = "";
     }
 
     if (t.total <= 0) {
+      clock.innerHTML = "TIMER";
       readOutLoud("Hey! The countdown is over!");
       clearInterval(timeinterval);
     }

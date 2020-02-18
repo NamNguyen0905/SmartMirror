@@ -64,6 +64,7 @@ recognition.onresult = function(event) {
 	console.log(transcript);
 	userText += transcript;
 	recognition.stop();
+	listener.style.display = "none";
 	readOutLoud(userText);
 	userText = "";
 	//recognizer.listen(result);
@@ -309,6 +310,7 @@ function readOutLoud(message) {
 
 recognition.onerror = function() {
 	console.error("Error. No speech");
+	listener.style.display = "none";
 	recognizer.listen(result);
 };
 

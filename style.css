@@ -1,224 +1,229 @@
 * {
-  font-size: 62.5%;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	font-size: 62.5%;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 html,
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  background: #111111;
-  color: white;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background: #111111;
+	color: white;
 }
 
 .grid-container {
-  display: grid;
-  /* grid-template-columns: 100%; */
-  grid-gap: none;
-  /* padding: ; */
-  height: 100%;
+	display: grid;
+	/* grid-template-columns: 100%; */
+	grid-gap: none;
+	/* padding: ; */
+	height: 100%;
 }
 
 .grid-container div {
-  background-color: #111111;
-  text-align: center;
-  padding: 1rem;
-  font-size: 3rem;
+	background-color: #111111;
+	text-align: center;
+	padding: 1rem;
+	font-size: 3rem;
 }
 
 .btn {
-  background-color: DodgerBlue;
-  border: none;
-  color: white;
-  padding: 1.2rem 1.6rem;
-  font-size: 1.6rem;
-  cursor: pointer;
-  position: fixed;
-  bottom: 2%;
-  right: 2%;
-  opacity: 0.5;
+	background-color: DodgerBlue;
+	border: none;
+	color: white;
+	padding: 1.2rem 1.6rem;
+	font-size: 1.6rem;
+	cursor: pointer;
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	opacity: 0.5;
 }
 
 .btn:hover {
-  background-color: RoyalBlue;
-  opacity: 1;
+	background-color: RoyalBlue;
+	opacity: 1;
 }
 ol,
 ul {
-  list-style-type: none;
+	list-style-type: none;
 }
 
 img {
-  width: 42.6rem;
-  height: 28.5rem;
+	width: 42.6rem;
+	height: 28.5rem;
 }
 
 .slider {
-  position: relative;
-  padding: none;
-  margin: auto;
-  overflow: hidden;
-  width: 40.625rem;
-  height: 26.25rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  border: solid 7px #111111;
+	position: relative;
+	padding: none;
+	margin: auto;
+	overflow: hidden;
+	width: 40.625rem;
+	height: 26.25rem;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+	border: solid 7px #111111;
 }
 
 .slider__list {
-  position: absolute;
-  top: -2rem;
-  left: -1.5rem;
-  width: 446.875rem;
-  animation-name: autoplay;
-  animation-duration: 30s;
-  animation-delay: 2s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+	position: absolute;
+	top: -2rem;
+	left: -1.5rem;
+	width: 446.875rem;
+	animation-name: autoplay;
+	animation-duration: 30s;
+	animation-delay: 2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
 }
 
 .slider__slide {
-  float: left;
+	float: left;
 }
 
 @keyframes autoplay {
-  /* 46.525 * x - 4.1 * (x-1) + 3 */
-  0% {
-    left: -4rem;
-  }
-  10% {
-    left: -43.55rem;
-  }
-  15% {
-    left: -43.55rem;
-  }
-  20% {
-    left: -86.15rem;
-  }
-  25% {
-    left: -86.15rem;
-  }
-  30% {
-    left: -128.775rem;
-  }
-  35% {
-    left: -128.775rem;
-  }
-  40% {
-    left: -171.4rem;
-  }
-  45% {
-    left: -171.4rem;
-  }
-  50% {
-    left: -214.025rem;
-  }
-  55% {
-    left: -214.025rem;
-  }
-  60% {
-    left: -256.65rem;
-  }
-  65% {
-    left: -256.65rem;
-  }
-  70% {
-    left: -299.275rem;
-  }
-  75% {
-    left: -299.275rem;
-  }
-  80% {
-    left: -341.9rem;
-  }
-  85% {
-    left: -341.9rem;
-  }
-  90% {
-    left: -384.525rem;
-  }
-  95% {
-    left: -384.525rem;
-  }
-  100% {
-    left: -384.525rem;
-  }
+	/* 46.525 * x - 4.1 * (x-1) + 3 */
+	0% {
+		left: -4rem;
+	}
+	10% {
+		left: -43.55rem;
+	}
+	15% {
+		left: -43.55rem;
+	}
+	20% {
+		left: -86.15rem;
+	}
+	25% {
+		left: -86.15rem;
+	}
+	30% {
+		left: -128.775rem;
+	}
+	35% {
+		left: -128.775rem;
+	}
+	40% {
+		left: -171.4rem;
+	}
+	45% {
+		left: -171.4rem;
+	}
+	50% {
+		left: -214.025rem;
+	}
+	55% {
+		left: -214.025rem;
+	}
+	60% {
+		left: -256.65rem;
+	}
+	65% {
+		left: -256.65rem;
+	}
+	70% {
+		left: -299.275rem;
+	}
+	75% {
+		left: -299.275rem;
+	}
+	80% {
+		left: -341.9rem;
+	}
+	85% {
+		left: -341.9rem;
+	}
+	90% {
+		left: -384.525rem;
+	}
+	95% {
+		left: -384.525rem;
+	}
+	100% {
+		left: -384.525rem;
+	}
 }
 
 .loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .loader > span {
-  display: inline-block;
-  background-color: purple;
-  width: 0px;
-  height: 0px;
-  border-radius: 50%;
-  margin: 0 8px;
-  transform: translate3d(0);
-  animation: bounce 0.6s infinite alternate;
+	display: inline-block;
+	background-color: purple;
+	width: 0px;
+	height: 0px;
+	border-radius: 50%;
+	margin: 0 8px;
+	transform: translate3d(0);
+	animation: bounce 0.6s infinite alternate;
 }
 
 .loader > span:nth-child(2) {
-  background-color: palevioletred;
-  animation-delay: 0.2s;
+	background-color: palevioletred;
+	animation-delay: 0.2s;
 }
 
 .loader > span:nth-child(3) {
-  animation-delay: 0.4s;
+	animation-delay: 0.4s;
 }
 
 @keyframes bounce {
-  to {
-    width: 16px;
-    height: 16px;
-    transform: translate3d(0, -16px, 0);
-  }
+	to {
+		width: 16px;
+		height: 16px;
+		transform: translate3d(0, -16px, 0);
+	}
 }
 
 [contentEditable="true"]:empty:not(:focus):before {
-  content: attr(data-text);
+	content: attr(data-text);
 }
 
 .time {
-  float: left;
-  font-size: medium;
-  text-align: center;
-  letter-spacing: 1px;
-  word-spacing: 2px;
-  line-height: 1.5;
-  font-weight: lighter;
-  min-width: 263.83px;
+	float: left;
+	font-size: medium;
+	text-align: center;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 1.5;
+	font-weight: lighter;
+	min-width: 263.83px;
 }
 
 #countdown {
-  font-size: x-large;
+	font-size: x-large;
 }
 
 .weather {
-  float: right;
-  font-size: medium;
-  text-align: center;
-  letter-spacing: 1px;
-  word-spacing: 2px;
-  line-height: 1.5;
-  font-weight: lighter;
-  margin-right: 50px;
+	float: right;
+	font-size: medium;
+	text-align: center;
+	letter-spacing: 1px;
+	word-spacing: 2px;
+	line-height: 1.5;
+	font-weight: lighter;
+	column-count: 4;
+	grid-column-gap: 10px;
+	column-rule: 2px gray;
+	column-rule-style: solid;
+	font-family: Arial;
+	color: white;
 }
 
 .voice {
-  display: block;
-  max-height: 140px;
-  padding: 0;
+	display: block;
+	max-height: 140px;
+	padding: 0;
 }
 
 #botText {
-  font-size: x-large;
+	font-size: x-large;
 }

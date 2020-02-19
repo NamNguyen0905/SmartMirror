@@ -159,6 +159,7 @@ function readOutLoud(message) {
 	else if (
 		message.search("what is the temperature today") >= 0 ||
 		message.search("what is the temperature outside") >= 0 ||
+		message.search("what's the temperature outside") >= 0 ||
 		message.search("what is today's outside temperature") >= 0 ||
 		message.search("how hot is it") >= 0 ||
 		message.search("is it hot") >= 0 ||

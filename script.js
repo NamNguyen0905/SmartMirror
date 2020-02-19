@@ -64,6 +64,7 @@ recognition.onresult = function(event) {
 	console.log(transcript);
 	userText += transcript;
 	recognition.stop();
+	listener.style.display = "none";
 	readOutLoud(userText);
 	userText = "";
 	//recognizer.listen(result);
@@ -158,6 +159,7 @@ function readOutLoud(message) {
 	else if (
 		message.search("what is the temperature today") >= 0 ||
 		message.search("what is the temperature outside") >= 0 ||
+		message.search("what's the temperature outside") >= 0 ||
 		message.search("what is today's outside temperature") >= 0 ||
 		message.search("how hot is it") >= 0 ||
 		message.search("is it hot") >= 0 ||
@@ -309,6 +311,7 @@ function readOutLoud(message) {
 
 recognition.onerror = function() {
 	console.error("Error. No speech");
+	listener.style.display = "none";
 	recognizer.listen(result);
 };
 

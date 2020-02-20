@@ -97,10 +97,6 @@ img {
   }
 }
 
-[contentEditable="true"]:empty:not(:focus):before {
-  content: attr(data-text);
-}
-
 .time {
   float: left;
   font-size: medium;
@@ -113,7 +109,7 @@ img {
 }
 
 #countdown {
-  font-size: x-large;
+  font-size: 98%;
 }
 
 .voice {
@@ -124,6 +120,28 @@ img {
 
 #botText {
   font-size: x-large;
+}
+
+.popUp-effect {
+  animation: fadeInAndScale 0.6s cubic-bezier(0, 1.07, 0.72, 1.42);
+  transform-origin: center bottom;
+}
+
+@keyframes fadeInAndScale {
+  from {
+    opacity: 0;
+    transform: scale3d(0.75, 0.75, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+#fadeout {
+  opacity: 1;
+  transition: 1s opacity;
+  text-align: center;
 }
 
 .news {
@@ -181,6 +199,14 @@ td:not(.title) {
   .footer {
     order: 4;
   }
+}
+
+.aside-1 {
+  flex: 0 0 24vw;
+}
+
+.aside-2 {
+  flex: 0 0 23vw;
 }
 
 .weather {

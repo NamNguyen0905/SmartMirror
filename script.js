@@ -1,8 +1,6 @@
 //		global variables
 var dailyNews = new Array(10);
-var long;
-var lat;
-var temp, humid, currentSummary, uvindex, windspeed, location, dailySummary;
+
 for (i = 0; i < dailyNews.length; i++) {
   dailyNews[i] = new Array(2);
 }
@@ -222,6 +220,7 @@ function readOutLoud(message) {
   //Add countdown feature
   // /set\s.+\stimer\s.+\s(\d+)\s(seconds|second|Seconds|Second|minutes|minute|Minutes|Minute|hours|hour|Hours|Hour)/i
   else if (message.search("set timer") >= 0) {
+    document.getElementById("countdown").innerHTML = "";
     let myRegexp = /(\d+)+\s([minutes?|seconds?|hours?]+)/gi;
     let match = myRegexp.exec(message);
     let deadline = new Date(Date.parse(new Date()) + 5 * 1000); //Default 5 seconds
@@ -260,6 +259,7 @@ function readOutLoud(message) {
   }
   // Search for "alarm" & "at" keyword to trigger
   else if (message.includes("alarm") && message.includes("at")) {
+    document.getElementById("countdown").innerHTML = "";
     let myRegexp = /(\d{1,2})(:(\d{2}))?\s+(a.m.|p.m.)/g;
     let match = myRegexp.exec(message);
 
@@ -308,8 +308,10 @@ function readOutLoud(message) {
   botText = "";
 
   speech.onend = function() {
+    document.getElementById("botText").classList.remove("popUp-effect");
     //this can be added at the end of the listen() function
     recognizer.listen(result);
+    fadeOutEffect("botText");
   };
 }
 
@@ -339,7 +341,9 @@ const thank = [
 
 function insertBotText(botText) {
   displayText = document.getElementById("botText");
+  displayText.style.opacity = 1;
   displayText.textContent = botText;
+  displayText.classList.add("popUp-effect");
 }
 
 ScrollRate = 20;
@@ -367,6 +371,20 @@ function scrollDiv() {
     DivElmnt.scrollTop = PreviousScrollTop;
     PreviousScrollTop--;
   }
+}
+
+function fadeOutEffect(id) {
+  var fadeTarget = document.getElementById(id);
+  var fadeEffect = setInterval(function() {
+    if (!fadeTarget.style.opacity) {
+      fadeTarget.style.opacity = 1;
+    }
+    if (fadeTarget.style.opacity > 0) {
+      fadeTarget.style.opacity -= 0.1;
+    } else {
+      clearInterval(fadeEffect);
+    }
+  }, 60);
 }
 
 //weather related stuff loaded in the beginning

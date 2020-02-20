@@ -224,6 +224,22 @@ img {
 	padding: 0;
 }
 
-#botText {
+/* #botText {
+} */
+
+/* Yen le */
+
+.fade-in {
 	font-size: x-large;
+	animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
 }

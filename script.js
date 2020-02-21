@@ -16,7 +16,10 @@ fetch(apiNEWS)
 		// Work with JSON data here
 		for (i = 0; i < dailyNews.length; i++) {
 			dailyNews[i][0] = data.articles[i].title;
-			dailyNews[i][1] = data.articles[i].description;
+			if (data.articles[i].description != null) {
+				dailyNews[i][1] = data.articles[i].description;
+			}
+			console.log(dailyNews[i][1]);
 			// Get image URL from API
 			document.getElementById("img" + (i + 1)).src =
 				data.articles[i].urlToImage;
@@ -123,10 +126,13 @@ function readOutLoud(message) {
 		message.search("give me the news") >= 0 ||
 		message.search("give me my daily update") >= 0
 	) {
-		botText = "These are the top news highlights from around the world! ";
-		for (i = 0; i < dailyNews.length - 5; i++) {
-			botText += i + 1 + "! " + dailyNews[i][0] + "! ";
-		}
+		botText = "This is the news snippet of the day! ";
+		let index = Math.floor(Math.random() * dailyNews.length);
+		botText += dailyNews[index][0] + " ";
+		botText += dailyNews[index][1];
+		// for (i = 0; i < dailyNews.length - 5; i++) {
+		// 	botText += i + 1 + "! " + dailyNews[i][0] + "! ";
+		// }
 	}
 	//Responses about date, day or time
 	else if (

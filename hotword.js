@@ -1,7 +1,9 @@
 const listener = document.getElementById("loader");
 loader.style.display = "none";
 // the link to your model provided by Teachable Machine export panel
-const URL = "https://teachablemachine.withgoogle.com/models/cAxP924p/";
+const URL = "https://teachablemachine.withgoogle.com/models/_Gd8JsJP/";
+
+// https://teachablemachine.withgoogle.com/models/cAxP924p/
 
 async function createModel() {
 	const checkpointURL = URL + "model.json"; // model topology
@@ -18,6 +20,7 @@ async function createModel() {
 }
 
 async function init() {
+	document.documentElement.webkitRequestFullscreen();
 	const recognizer = await createModel();
 	const classLabels = recognizer.wordLabels(); // get class labels. Hotword or background noise
 	console.log(classLabels);
@@ -28,7 +31,7 @@ async function init() {
 		includeSpectrogram: false, // in case listen should return result.spectrogram
 		probabilityThreshold: 0.95,
 		invokeCallbackOnNoiseAndUnknown: false, //this is the one that keeps listening if kept to false
-		overlapFactor: 0.5 // probably want between 0.5 and 0.75. More info in README
+		overlapFactor: 0 // probably want between 0.5 and 0.75. More info in README
 	});
 }
 
